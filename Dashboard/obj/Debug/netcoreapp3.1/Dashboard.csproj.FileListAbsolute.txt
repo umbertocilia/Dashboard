@@ -1,0 +1,15 @@
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\bin\Debug\netcoreapp3.1\Dashboard.exe
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\bin\Debug\netcoreapp3.1\Dashboard.deps.json
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\bin\Debug\netcoreapp3.1\Dashboard.runtimeconfig.json
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\bin\Debug\netcoreapp3.1\Dashboard.runtimeconfig.dev.json
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\bin\Debug\netcoreapp3.1\Dashboard.dll
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\bin\Debug\netcoreapp3.1\Dashboard.pdb
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.csprojAssemblyReference.cache
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.Form1.resources
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.csproj.GenerateResource.cache
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.AssemblyInfoInputs.cache
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.AssemblyInfo.cs
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.csproj.CoreCompileInputs.cache
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.dll
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.pdb
+C:\Users\ucilia\Desktop\game-of-life\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.genruntimeconfig.cache
