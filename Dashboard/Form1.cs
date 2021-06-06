@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Models;
+using GraphRenderer;
 
 namespace Dashboard
 {
     public partial class Form1 : Form
     {
+        private Renderer _r;
+       
+
         public Form1()
         {
             InitializeComponent();
+            _r = new Renderer(canvas.Width, canvas.Height);
             Reset();
         }
 
@@ -25,16 +25,21 @@ namespace Dashboard
 
         private void Render()
         {
-            using (var bmp = new Bitmap(canvas.Width, canvas.Height))
-            using (var gfx = Graphics.FromImage(bmp))
-            using (var brush = new SolidBrush(Color.LightGreen))
-            {
-                gfx.Clear(ColorTranslator.FromHtml("#2f3539"));
+            canvas.Image?.Dispose();
+            canvas.Image = _r.Render();
+        }
 
-               
-                canvas.Image?.Dispose();
-                canvas.Image = (Bitmap)bmp.Clone();
-            }
+       
+
+        private void canvas_MouseClick(object sender, MouseEventArgs e)
+        {
+            _r.AddBox(e.X, e.Y, 50);
+            Reset();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _r.SaveImage("Prova");
         }
     }
 }

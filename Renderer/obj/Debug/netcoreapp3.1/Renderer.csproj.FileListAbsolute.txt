@@ -1,0 +1,12 @@
+C:\Users\ucilia\Desktop\Dashboard\Renderer\obj\Debug\netcoreapp3.1\Renderer.csproj.AssemblyReference.cache
+C:\Users\ucilia\Desktop\Dashboard\Renderer\obj\Debug\netcoreapp3.1\Renderer.AssemblyInfoInputs.cache
+C:\Users\ucilia\Desktop\Dashboard\Renderer\obj\Debug\netcoreapp3.1\Renderer.AssemblyInfo.cs
+C:\Users\ucilia\Desktop\Dashboard\Renderer\obj\Debug\netcoreapp3.1\Renderer.csproj.CoreCompileInputs.cache
+C:\Users\ucilia\Desktop\Dashboard\Renderer\bin\Debug\netcoreapp3.1\GraphRenderer.deps.json
+C:\Users\ucilia\Desktop\Dashboard\Renderer\bin\Debug\netcoreapp3.1\GraphRenderer.dll
+C:\Users\ucilia\Desktop\Dashboard\Renderer\bin\Debug\netcoreapp3.1\GraphRenderer.pdb
+C:\Users\ucilia\Desktop\Dashboard\Renderer\obj\Debug\netcoreapp3.1\GraphRenderer.dll
+C:\Users\ucilia\Desktop\Dashboard\Renderer\obj\Debug\netcoreapp3.1\GraphRenderer.pdb
+C:\Users\ucilia\Desktop\Dashboard\Renderer\bin\Debug\netcoreapp3.1\Models.dll
+C:\Users\ucilia\Desktop\Dashboard\Renderer\bin\Debug\netcoreapp3.1\Models.pdb
+C:\Users\ucilia\Desktop\Dashboard\Renderer\obj\Debug\netcoreapp3.1\Renderer.csproj.CopyComplete

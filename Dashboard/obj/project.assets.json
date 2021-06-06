@@ -1,11 +1,51 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "GraphRenderer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/GraphRenderer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GraphRenderer.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "Models/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Models.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "GraphRenderer/1.0.0": {
+      "type": "project",
+      "path": "../Renderer/Renderer.csproj",
+      "msbuildProject": "../Renderer/Renderer.csproj"
+    },
+    "Models/1.0.0": {
+      "type": "project",
+      "path": "../Modelss/Models.csproj",
+      "msbuildProject": "../Modelss/Models.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "GraphRenderer >= 1.0.0",
+      "Models >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\ucilia\\.nuget\\packages\\": {}
@@ -33,7 +73,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ucilia\\Desktop\\Dashboard\\Modelss\\Models.csproj": {
+              "projectPath": "C:\\Users\\ucilia\\Desktop\\Dashboard\\Modelss\\Models.csproj"
+            },
+            "C:\\Users\\ucilia\\Desktop\\Dashboard\\Renderer\\Renderer.csproj": {
+              "projectPath": "C:\\Users\\ucilia\\Desktop\\Dashboard\\Renderer\\Renderer.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -63,7 +110,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }

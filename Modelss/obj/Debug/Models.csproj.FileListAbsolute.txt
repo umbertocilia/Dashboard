@@ -1,0 +1,6 @@
+C:\Users\ucilia\Desktop\Dashboard\Modelss\obj\Debug\Models.csproj.CoreCompileInputs.cache
+C:\Users\ucilia\Desktop\Dashboard\Modelss\bin\Debug\Models.dll
+C:\Users\ucilia\Desktop\Dashboard\Modelss\bin\Debug\Models.pdb
+C:\Users\ucilia\Desktop\Dashboard\Modelss\obj\Debug\Models.dll
+C:\Users\ucilia\Desktop\Dashboard\Modelss\obj\Debug\Models.pdb
+C:\Users\ucilia\Desktop\Dashboard\Modelss\obj\Debug\Models.csproj.AssemblyReference.cache
