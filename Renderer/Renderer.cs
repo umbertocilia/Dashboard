@@ -4,13 +4,18 @@ using Models;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace GraphRenderer
 {
     public class Renderer
     {
         private Bitmap _canvas;
+
         private List<ModelBox> _boxList = new List<ModelBox>();
+
+        public Boolean mouseDown = false;
+        public PointF mouseLastPosition;
 
         public Modalita mod = Modalita.Puntatore;
 
@@ -20,8 +25,26 @@ namespace GraphRenderer
             Nodo
         }
 
-        private Pen _selectedPen;
 
+        private Graphics _gfx;
+        private Graphics _g
+        {
+            get
+            {
+                if (_gfx == null)
+                {
+                    _gfx = Graphics.FromImage(_canvas);
+                    _gfx.SmoothingMode = SmoothingMode.AntiAlias;
+
+                    return _gfx;
+                }
+                else { return _gfx; }
+            }
+
+        }
+
+
+        private Pen _selectedPen;
         public  Pen SelectedPen
         {
             get { 
@@ -45,17 +68,13 @@ namespace GraphRenderer
 
         public Bitmap Render()
         {
-            Bitmap bmp = _canvas;
+           
+                _g.Clear(ColorTranslator.FromHtml("#2f3539"));
 
-            using (var gfx = Graphics.FromImage(bmp))
-            {
-                gfx.SmoothingMode = SmoothingMode.AntiAlias;
-                gfx.Clear(ColorTranslator.FromHtml("#2f3539"));
-
-                DrawNodes(gfx, _boxList);
+                DrawNodes(_g, _boxList);
                
-                return (Bitmap)bmp.Clone();
-            }
+                return (Bitmap)_canvas.Clone();
+            
         }
 
         public void AddBox(Single x, Single y, Single side)
@@ -69,18 +88,8 @@ namespace GraphRenderer
         {
             foreach (ModelBox box in _boxList)
             {
-                var position = new PointF(box.Position().X * _canvas.Width, box.Position().Y * _canvas.Height);
-
-               if(x >= position.X && x <= position.X + box.Side)
-                {
-                    if(y >= position.Y && y <= position.Y + box.Side)
-                    {
-                        box.Selected = true;
-                    }
-                    else { box.Selected = false; }
-                }
-                else { box.Selected = false; }
-
+                if (_isPointerOnNode(x, y, box)) { box.Selected = true; } else { box.Selected = false; }
+                
             }
         }
 
@@ -88,32 +97,76 @@ namespace GraphRenderer
         {
 
             Brush brush = new SolidBrush(Color.LightGreen) ;
-            Brush orangeBrush = new SolidBrush(Color.Orange);
-
+           
             foreach (ModelBox box in nodeList)
             {
                 var position = new PointF(box.Position().X * _canvas.Width, box.Position().Y * _canvas.Height);
 
-                var cellRect = new RectangleF(position.X, position.Y, box.Side, box.Side);
+                var boxRect = new RectangleF(position.X, position.Y, box.Side, box.Side);
 
-                g.FillRectangle(brush, cellRect);
+                g.FillRectangle(brush, boxRect);
 
-                if (box.Selected) { 
-                    g.DrawRectangle(SelectedPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-
-                    //Corners dots
-                    g.FillEllipse(orangeBrush, cellRect.X-5, cellRect.Y-5, 10, 10);//upper left
-                    g.FillEllipse(orangeBrush, cellRect.X-5 + box.Side, cellRect.Y-5, 10, 10);//upper right
-                    g.FillEllipse(orangeBrush, cellRect.X-5, cellRect.Y-5 + box.Side, 10, 10);//bottom left
-                    g.FillEllipse(orangeBrush, cellRect.X-5 + box.Side, cellRect.Y-5 + box.Side, 10, 10);//bottom right;
-
+                if (box.Selected) {
+                    g = _drawSelection(g, box);
                 }
 
-                
             }
 
             return g;
         }
+
+        private Graphics _drawSelection(Graphics g, ModelBox box)
+        {
+            Brush orangeBrush = new SolidBrush(Color.Orange);
+
+            var position = new PointF(box.Position().X * _canvas.Width, box.Position().Y * _canvas.Height);
+
+            var boxRect = new RectangleF(position.X, position.Y, box.Side, box.Side);
+
+            g.DrawRectangle(SelectedPen, boxRect.X, boxRect.Y, boxRect.Width, boxRect.Height);
+
+            //Corners dots
+            g.FillEllipse(orangeBrush, boxRect.X - 5, boxRect.Y - 5, 10, 10);//upper left
+            g.FillEllipse(orangeBrush, boxRect.X - 5 + box.Side, boxRect.Y - 5, 10, 10);//upper right
+            g.FillEllipse(orangeBrush, boxRect.X - 5, boxRect.Y - 5 + box.Side, 10, 10);//bottom left
+            g.FillEllipse(orangeBrush, boxRect.X - 5 + box.Side, boxRect.Y - 5 + box.Side, 10, 10);//bottom right;
+
+            return g;
+        }
+
+        public void DragNode(Single x, Single y)
+        {
+            List<ModelBox> selectedNodes = _boxList.Where(x => x.Selected == true).ToList();
+
+            foreach (ModelBox box in selectedNodes)
+            {
+               
+                    box.X = ((box.Position().X * _canvas.Width ) - (mouseLastPosition.X - x)) / _canvas.Width;
+                    box.Y = ((box.Position().Y * _canvas.Height ) - (mouseLastPosition.Y - y)) / _canvas.Height;
+               
+            }
+
+            mouseLastPosition = new PointF(x, y);
+        }
+
+        private Boolean _isPointerOnNode(Single pointerX, Single pointerY, ModelBox box)
+        {
+            var position = new PointF(box.Position().X * _canvas.Width, box.Position().Y * _canvas.Height);
+
+            if (pointerX >= position.X && pointerX <= position.X + box.Side)
+            {
+                if (pointerY >= position.Y && pointerY <= position.Y + box.Side)
+                {
+                    return true;
+                }
+                
+            }
+
+            return false;
+        }
+
+
+
 
         public void SaveImage(string filename)
         {

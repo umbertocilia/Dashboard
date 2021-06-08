@@ -8,8 +8,12 @@ namespace Models
     {
         
         private Single _x;
+        public float X { get => _x; set => _x = value; }
+
         private Single _y;
-        
+        public float Y { get => _y; set => _y = value; }
+
+
         private Single _side; 
         public Single Side { get => _side; set => _side = value; }
 
@@ -18,16 +22,17 @@ namespace Models
 
         private String _code;
         public string Code { get => _code; set => _code = value; }
+        
 
         public ModelBox(Single x, Single y, Single side)
         {
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
             Side = side;
         }
 
-        public PointF Position(){  return new PointF(_x, _y);}
-        public PointF Center() { return new PointF(_x + Side / 2, _y + Side / 2); }
+        public PointF Position(){  return new PointF(X, Y);}
+        public PointF Center() { return new PointF(X + Side / 2, Y + Side / 2); }
       
     }
 }
