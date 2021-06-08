@@ -33,13 +33,29 @@ namespace Dashboard
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
-            _r.AddBox(e.X, e.Y, 50);
-            Reset();
+            switch (_r.mod)
+            {
+                case Renderer.Modalita.Puntatore:
+                    _r.SelectBox(e.X, e.Y);
+                    Reset();
+                    break;
+
+                case Renderer.Modalita.Nodo:
+                    _r.AddBox(e.X, e.Y, 50);
+                    Reset();
+                    break;
+
+            }
+            
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             _r.SaveImage("Prova");
         }
+
+        private void btnPointer_Click(object sender, System.EventArgs e){ _r.mod = Renderer.Modalita.Puntatore; }
+
+        private void btnNodo_Click(object sender, System.EventArgs e){ _r.mod = Renderer.Modalita.Nodo; }
     }
 }

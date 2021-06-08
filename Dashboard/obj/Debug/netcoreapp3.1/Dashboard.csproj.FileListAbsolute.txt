@@ -33,3 +33,4 @@ C:\Users\ucilia\Desktop\Dashboard\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.ge
 C:\Users\ucilia\Desktop\Dashboard\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.csproj.AssemblyReference.cache
 C:\Users\ucilia\Desktop\Dashboard\Dashboard\bin\Debug\netcoreapp3.1\GraphRenderer.dll
 C:\Users\ucilia\Desktop\Dashboard\Dashboard\bin\Debug\netcoreapp3.1\GraphRenderer.pdb
+C:\Users\ucilia\Desktop\Dashboard\Dashboard\obj\Debug\netcoreapp3.1\Dashboard.Properties.Resources.resources

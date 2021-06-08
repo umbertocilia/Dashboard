@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Models;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 
 namespace GraphRenderer
 {
@@ -10,6 +11,31 @@ namespace GraphRenderer
     {
         private Bitmap _canvas;
         private List<ModelBox> _boxList = new List<ModelBox>();
+
+        public Modalita mod = Modalita.Puntatore;
+
+        public enum Modalita
+        {
+            Puntatore,
+            Nodo
+        }
+
+        private Pen _selectedPen;
+
+        public  Pen SelectedPen
+        {
+            get { 
+                if(_selectedPen == null)
+                {
+                   _selectedPen = new Pen(Color.FromArgb(255, 255, 255, 255), 2);
+                   _selectedPen.DashStyle = DashStyle.Dot;
+                    return _selectedPen;
+                }
+                else { return _selectedPen; }
+            }
+        }
+
+       
 
         //Constructor
         public Renderer(int w, int h)
@@ -22,19 +48,12 @@ namespace GraphRenderer
             Bitmap bmp = _canvas;
 
             using (var gfx = Graphics.FromImage(bmp))
-            using (var brush = new SolidBrush(Color.LightGreen))
             {
+                gfx.SmoothingMode = SmoothingMode.AntiAlias;
                 gfx.Clear(ColorTranslator.FromHtml("#2f3539"));
 
-                foreach(ModelBox box in _boxList)
-                {
-                    var position = new PointF(box.Position().X * _canvas.Width, box.Position().Y * _canvas.Height);
-
-                    var cellRect = new RectangleF(position.X, position.Y, box.Side, box.Side);
-
-                    gfx.FillRectangle(brush, cellRect);
-                }
-
+                DrawNodes(gfx, _boxList);
+               
                 return (Bitmap)bmp.Clone();
             }
         }
@@ -46,7 +65,55 @@ namespace GraphRenderer
             _boxList.Add(new ModelBox(relX, relY, side));
         }
 
+        public void SelectBox(Single x, Single y)
+        {
+            foreach (ModelBox box in _boxList)
+            {
+                var position = new PointF(box.Position().X * _canvas.Width, box.Position().Y * _canvas.Height);
 
+               if(x >= position.X && x <= position.X + box.Side)
+                {
+                    if(y >= position.Y && y <= position.Y + box.Side)
+                    {
+                        box.Selected = true;
+                    }
+                    else { box.Selected = false; }
+                }
+                else { box.Selected = false; }
+
+            }
+        }
+
+        private Graphics DrawNodes(Graphics g, List<ModelBox> nodeList)
+        {
+
+            Brush brush = new SolidBrush(Color.LightGreen) ;
+            Brush orangeBrush = new SolidBrush(Color.Orange);
+
+            foreach (ModelBox box in nodeList)
+            {
+                var position = new PointF(box.Position().X * _canvas.Width, box.Position().Y * _canvas.Height);
+
+                var cellRect = new RectangleF(position.X, position.Y, box.Side, box.Side);
+
+                g.FillRectangle(brush, cellRect);
+
+                if (box.Selected) { 
+                    g.DrawRectangle(SelectedPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+
+                    //Corners dots
+                    g.FillEllipse(orangeBrush, cellRect.X-5, cellRect.Y-5, 10, 10);//upper left
+                    g.FillEllipse(orangeBrush, cellRect.X-5 + box.Side, cellRect.Y-5, 10, 10);//upper right
+                    g.FillEllipse(orangeBrush, cellRect.X-5, cellRect.Y-5 + box.Side, 10, 10);//bottom left
+                    g.FillEllipse(orangeBrush, cellRect.X-5 + box.Side, cellRect.Y-5 + box.Side, 10, 10);//bottom right;
+
+                }
+
+                
+            }
+
+            return g;
+        }
 
         public void SaveImage(string filename)
         {
@@ -66,8 +133,6 @@ namespace GraphRenderer
             myEncoderParameters.Param[0] = myEncoderParameter;
             _canvas.Save(filename+".jpg", myImageCodecInfo, myEncoderParameters);
         }
-
-
 
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
